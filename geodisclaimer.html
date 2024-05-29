@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Geo disclaimer</title>
+
+	<script>
+		function loadStyles() {
+			fetch('styles.txt')
+				.then(response => response.text())
+				.then(data => {
+					const head = document.querySelector('head');
+					head.insertAdjacentHTML('beforeend', data);
+				})
+				.catch(error => console.error('Error al cargar el archivo:', error));
+		}
+
+		window.addEventListener('load', loadStyles);
+	</script>
+</head>
+
+<body>
+	<div class="fxs_bg_error_light_4_clr fxs_paddingHalf" style="display: flex; align-items:center; justify-content:flex-start; gap: 8px;">
+		<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0.5 13C0.5 6.09644 6.09644 0.5 13 0.5C19.9036 0.5 25.5 6.09644 25.5 13C25.5 19.9036 19.9036 25.5 13 25.5C6.09644 25.5 0.5 19.9036 0.5 13Z" fill="#F0F9F7" />
+			<path d="M0.5 13C0.5 6.09644 6.09644 0.5 13 0.5C19.9036 0.5 25.5 6.09644 25.5 13C25.5 19.9036 19.9036 25.5 13 25.5C6.09644 25.5 0.5 19.9036 0.5 13Z" stroke="#255F53" />
+			<path d="M19.1615 9.09473C19.4199 9.38184 19.4199 9.8125 19.1615 10.0709L11.5818 17.6506C11.2947 17.9377 10.8641 17.9377 10.6057 17.6506L6.70098 13.7459C6.41387 13.4875 6.41387 13.0568 6.70098 12.7984C6.95937 12.5113 7.39004 12.5113 7.64844 12.7984L11.065 16.215L18.1854 9.09473C18.4437 8.83633 18.8744 8.83633 19.1328 9.09473H19.1615Z" fill="#255F53" />
+		</svg>
+		<p class="fxs_entryPlain_txt_small fxs_resetMargin fxs_txt_dark_1_clr">This is an allowed message</p>
+	</div>
+</body>
+
+</html>
