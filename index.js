@@ -22,7 +22,7 @@ const handleReviewMenu = () => {
 		const targetSection = document.getElementById(targetId);
 
 		if (targetSection) {
-			targetSection.scrollIntoView({ behavior: 'smooth' });
+			targetSection.scrollIntoView({ block: 'start', behavior: 'smooth' });
 		}
 	};
 
@@ -30,29 +30,30 @@ const handleReviewMenu = () => {
 		let currentSection = null;
 		const windowTop = window.scrollY;
 		const windowWidth = window.innerWidth;
-
+	
 		sections.forEach(section => {
 			const rect = section.getBoundingClientRect();
 			const sectionTop = rect.top + windowTop;
 			const sectionBottom = sectionTop + section.offsetHeight;
 			const menuHeight = 100;
 			const menuHeightMobile = 127;
-
+	
 			let offsetTop, offsetBottom;
-
+			const additionalOffset = 112; // Añadimos 112px al offset
+	
 			if (windowWidth <= 767) {
-				offsetTop = windowTop + menuHeightMobile;
-				offsetBottom = windowTop + menuHeightMobile;
+				offsetTop = windowTop + menuHeightMobile + additionalOffset;
+				offsetBottom = windowTop + menuHeightMobile + additionalOffset;
 			} else {
-				offsetTop = windowTop + menuHeightMobile;
-				offsetBottom = windowTop + menuHeightMobile;
+				offsetTop = windowTop + menuHeight + additionalOffset;
+				offsetBottom = windowTop + menuHeight + additionalOffset;
 			}
-
+	
 			if (sectionTop <= offsetTop && sectionBottom >= offsetBottom) {
 				currentSection = section.getAttribute('id');
 			}
 		});
-
+	
 		if (currentSection) {
 			menuButtons.forEach(btn => {
 				btn.classList.remove('active');
@@ -62,13 +63,13 @@ const handleReviewMenu = () => {
 			});
 		}
 	};
+	
 
 	menuButtons.forEach(button => {
 		button.addEventListener('click', handleClick);
 	});
 
 	window.addEventListener('scroll', handleScroll);
-	handleScroll();
 };
 
 const handleReviewMenuButtons = () => {
@@ -129,52 +130,6 @@ const handleReviewMenuButtons = () => {
 			behavior: 'smooth'
 		});
 	}
-};
-
-const handleReviewMenuScroll = () => {
-    const menuWrapper = document.querySelector('.fxs_full_review_menu_wrapper');
-    const menuButtons = document.querySelectorAll('.fxs_full_review_menu_button');
-    const sections = document.querySelectorAll('.fxs_full_review_item');
-
-    const scrollToCenter = (element) => {
-        const menuWrapperRect = menuWrapper.getBoundingClientRect();
-        const elementRect = element.getBoundingClientRect();
-
-        const offset = elementRect.left - menuWrapperRect.left + (elementRect.width / 2) - (menuWrapperRect.width / 2);
-        menuWrapper.scrollBy({
-            top: 0,
-            left: offset,
-            behavior: 'smooth'
-        });
-    };
-
-    const handleScroll = () => {
-        let currentSection = null;
-        const windowTop = window.scrollY;
-
-        sections.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            const sectionTop = rect.top + windowTop;
-            const sectionBottom = sectionTop + section.offsetHeight;
-
-            if (windowTop >= sectionTop && windowTop < sectionBottom) {
-                currentSection = section.getAttribute('id');
-            }
-        });
-
-        if (currentSection) {
-            menuButtons.forEach(btn => {
-                if (btn.getAttribute('data-target') === currentSection) {
-                    menuButtons.forEach(btn => btn.classList.remove('active'));
-                    btn.classList.add('active');
-                    scrollToCenter(btn);
-                }
-            });
-        }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
 };
 
 const handleUserReviewCarousel = () => {
@@ -267,13 +222,44 @@ const handleFaqsAccordionClick = () => {
 	});
 };
 
+const handleProgressBar = () => {
+	const progressBars = document.querySelectorAll('.fxs_progressBar_inner');
+
+	const animateProgressBar = (entries, observer) => {
+		entries.forEach(entry => {
+			const progressBar = entry.target;
+			const percentage = progressBar.getAttribute('data-percentage');
+			progressBar.style.flexBasis = '0%';
+
+			if (entry.isIntersecting) {
+				setTimeout(() => {
+
+					progressBar.style.transition = 'flex-basis 2s';
+					progressBar.style.flexBasis = `${percentage}%`;
+					observer.unobserve(progressBar);
+				}, 100)
+			}
+		});
+	}
+
+	const observer = new IntersectionObserver(animateProgressBar, {
+		threshold: 0.1
+	});
+
+	progressBars.forEach(bar => {
+		const flexBasis = bar.style.flexBasis;
+		const percentage = flexBasis ? flexBasis.match(/\d+/)[0] : '0';
+		bar.setAttribute('data-percentage', percentage);
+		observer.observe(bar);
+	});
+};
 
 // LOAD FUNCIONS
 document.addEventListener('DOMContentLoaded', () => {
 	toggleFixedLinkButtonsVisibility();
 	handleReviewMenu();
 	handleReviewMenuButtons();
-	// handleReviewMenuScroll();
 	handleUserReviewCarousel();
 	handleFaqsAccordionClick();
+	handleProgressBar();
 });

@@ -9,6 +9,20 @@
 
 	<link rel="stylesheet" href="style.css">
 	<script src="index.js"></script>
+
+	<script>
+		const loadStyles = () => {
+			fetch('styles.txt')
+				.then(response => response.text())
+				.then(data => {
+					const head = document.querySelector('head');
+					head.insertAdjacentHTML('beforeend', data);
+				})
+				.catch(error => console.error('Error al cargar el archivo:', error));
+		}
+
+		window.addEventListener('load', loadStyles);
+	</script>
 </head>
 
 <body>
@@ -55,11 +69,11 @@
 			<!-- BUTTONS BANNER -->
 			<section class="fxs_fixed_link_buttons_wrappper fxs_marginBase_bottom_big">
 				<a class="fxs_btn fxs_btn_cta" href="openaccounturl" data-ga4event-clk-name="broker_review_click" data-ga4event-element="open_account">OPEN ACCOUNT</a>
-				<a href="visitbrokersiteurl" data-ga4event-clk-name="broker_review_click" data-ga4event-element="visit_broker_site">Visit Broker Site</a>
+				<a href="#" data-ga4event-clk-name="broker_review_click" data-ga4event-element="visit_broker_site">Visit Broker Site</a>
 			</section>
 			<section class="fxs_fixed_link_buttons_wrappper hidden" id="fxs_fixed_link_buttons">
 				<a class="fxs_btn fxs_btn_cta" href="openaccounturl" data-ga4event-clk-name="broker_review_click" data-ga4event-element="open_account">OPEN ACCOUNT</a>
-				<a href="visitbrokersiteurl" data-ga4event-clk-name="broker_review_click" data-ga4event-element="visit_broker_site">Visit Broker Site</a>
+				<a href="#" data-ga4event-clk-name="broker_review_click" data-ga4event-element="visit_broker_site">Visit Broker Site</a>
 			</section>
 
 			<!-- COMPANY SKILLS -->
@@ -490,28 +504,6 @@
 				<!-- Review section 4 -->
 				<div class="fxs_full_review_item" id="section4">
 					<!-- Title -->
-					<h2 class="fxs_headline_medium fxs_resetMargin">[Broker Name] Overall User Experience</h2>
-
-					<!-- Range -->
-					<div class="fxs_progressBar_wrapper fxs_col_33">
-						<p class="fxs_headline_small fxs_resetMargin"><strong>Trust</strong></p>
-						<p class="fxs_progressBar_wrapper_inner fxs_resetMargin">
-							<span class="fxs_progressBar_outer">
-								<span class="fxs_progressBar_inner" style="flex: 0 0 75%"></span>
-							</span>
-							<strong class="fxs_progressBar_value">75%</strong>
-						</p>
-					</div>
-
-					<!-- Section -->
-					<div class="fxs_full_review_subitem">
-						<p class="fxs_entryPlain_txt fxs_resetMargin">How many regulation tiers does the broker offer throughout all of its different entities? More regulations (particularly, the more tier-1 ones) accepted will increase the trust with the broker reviewed and increase the score. This is a crucial category for the review, as traders generally rate trust with the broker they select to trade as a crucial feature.</p>
-					</div>
-				</div>
-
-				<!-- Review section 5 -->
-				<div class="fxs_full_review_item" id="section5">
-					<!-- Title -->
 					<h2 class="fxs_headline_medium fxs_resetMargin">[Broker Name] Trust</h2>
 
 					<!-- Range -->
@@ -538,8 +530,8 @@
 					</div>
 				</div>
 
-				<!-- Review section 7 -->
-				<div class="fxs_full_review_item" id="section6">
+				<!-- Review section 5 -->
+				<div class="fxs_full_review_item" id="section5">
 					<!-- Title -->
 					<h2 class="fxs_headline_medium fxs_resetMargin">[Broker Name] Customer Service and Support</h2>
 
@@ -570,6 +562,28 @@
 					<div class="fxs_full_review_subitem">
 						<h3 class="fxs_entryPlain_txt fxs_txt_weight_500 fxs_resetMargin">Usefulness</h3>
 						<p class="fxs_entryPlain_txt fxs_resetMargin">How helpful is the customer service with actual questions. Reviewer must contact them and validate that they provide good, useful solutions for the problems/enquiries made by potential traders.</p>
+					</div>
+				</div>
+
+				<!-- Review section 6 -->
+				<div class="fxs_full_review_item" id="section6">
+					<!-- Title -->
+					<h2 class="fxs_headline_medium fxs_resetMargin">[Broker Name] Overall User Experience</h2>
+
+					<!-- Range -->
+					<div class="fxs_progressBar_wrapper fxs_col_33">
+						<p class="fxs_headline_small fxs_resetMargin"><strong>Trust</strong></p>
+						<p class="fxs_progressBar_wrapper_inner fxs_resetMargin">
+							<span class="fxs_progressBar_outer">
+								<span class="fxs_progressBar_inner" style="flex: 0 0 75%"></span>
+							</span>
+							<strong class="fxs_progressBar_value">75%</strong>
+						</p>
+					</div>
+
+					<!-- Section -->
+					<div class="fxs_full_review_subitem">
+						<p class="fxs_entryPlain_txt fxs_resetMargin">How many regulation tiers does the broker offer throughout all of its different entities? More regulations (particularly, the more tier-1 ones) accepted will increase the trust with the broker reviewed and increase the score. This is a crucial category for the review, as traders generally rate trust with the broker they select to trade as a crucial feature.</p>
 					</div>
 				</div>
 			</div>
